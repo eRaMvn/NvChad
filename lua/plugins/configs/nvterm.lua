@@ -13,9 +13,9 @@ local options = {
       float = {
         relative = "editor",
         row = 0.3,
-        col = 0.25,
-        width = 0.5,
-        height = 0.4,
+        col = 0.18,
+        width = 0.6,
+        height = 0.5,
         border = "single",
       },
       horizontal = { location = "rightbelow", split_ratio = 0.3 },

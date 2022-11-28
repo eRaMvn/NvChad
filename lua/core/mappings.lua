@@ -9,7 +9,7 @@ local M = {}
 M.general = {
   i = {
     -- go to  beginning and end
-    ["<C-b>"] = { "<ESC>^i", "beginning of line" },
+    ["<C-a>"] = { "<ESC>^i", "beginning of line" },
     ["<C-e>"] = { "<End>", "end of line" },
 
     -- navigate within insert mode
@@ -21,6 +21,8 @@ M.general = {
 
   n = {
     ["<ESC>"] = { "<cmd> noh <CR>", "no highlight" },
+    -- split vertically
+    ["<C-Bslash>"] = { "<cmd> vsplit <CR>", "split vertically" },
 
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "window left" },
@@ -32,7 +34,7 @@ M.general = {
     ["<C-s>"] = { "<cmd> w <CR>", "save file" },
 
     -- Copy all
-    ["<C-c>"] = { "<cmd> %y+ <CR>", "copy whole file" },
+    ["<leader>ca"] = { "<cmd> %y+ <CR>", "copy whole file" },
 
     -- line numbers
     ["<leader>n"] = { "<cmd> set nu! <CR>", "toggle line number" },
@@ -59,6 +61,9 @@ M.general = {
 
     -- new buffer
     ["<leader>b"] = { "<cmd> enew <CR>", "new buffer" },
+
+    ["<A-p>"] = { '"0p', "paste from yank" },
+    ["<A-w>"] = { 'yiw', "copy the current word" },
   },
 
   t = { ["<C-x>"] = { termcodes "<C-\\><C-N>", "escape terminal mode" } },
@@ -112,9 +117,9 @@ M.tabufline = {
 M.comment = {
   plugin = true,
 
-  -- toggle comment in both modes
+  -- toggle comment in both modes using Ctrl-/
   n = {
-    ["<leader>/"] = {
+    ["<C-_>"] = {
       function()
         require("Comment.api").toggle.linewise.current()
       end,
@@ -123,7 +128,7 @@ M.comment = {
   },
 
   v = {
-    ["<leader>/"] = {
+    ["<C-_>"] = {
       "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
       "toggle comment",
     },
@@ -346,14 +351,14 @@ M.nvterm = {
 
     -- new
 
-    ["<leader>h"] = {
+    ["<leader>hh"] = {
       function()
         require("nvterm.terminal").new "horizontal"
       end,
       "new horizontal term",
     },
 
-    ["<leader>v"] = {
+    ["<leader>vv"] = {
       function()
         require("nvterm.terminal").new "vertical"
       end,
@@ -464,6 +469,20 @@ M.gitsigns = {
         require("gitsigns").toggle_deleted()
       end,
       "Toggle deleted",
+    },
+
+    ["<leader>hd"] = {
+      function()
+        require("gitsigns").diffthis()
+      end,
+      "Open git diff",
+    },
+
+    ["<leader>hs"] = {
+      function()
+        require("gitsigns").stage_hunk()
+      end,
+      "Show stage buffer",
     },
   },
 }
